@@ -68,5 +68,5 @@ resource "google_compute_instance" "k3s" {
 
 output "instance_ip" {
   description = "The public IP address of the k3s VM instance."
-  value = ""
+  value = "${google_compute_instance.k3s.network_interface.0.access_config.0.nat_ip}"
 }
