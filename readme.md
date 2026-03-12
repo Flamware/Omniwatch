@@ -24,7 +24,7 @@ Dans un monde saturé par le code généré, **OmniWatch est certifié 100% réd
 - `.github/workflows` : Pipelines CI/CD.
 
 ## 📈 Roadmap
-- [ ] Phase 1 : Provisioning VPC & GKE avec Terraform.
+- [X] Phase 1 : Provisioning VPC & GKE avec Terraform.
 - [ ] Phase 2 : Backend Go (MQTT Client + API).
 - [ ] Phase 3 : CI/CD Pipeline & Dockerization.
 - [ ] Phase 4 : Dashboard React & Observabilité.
