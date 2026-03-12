@@ -55,15 +55,16 @@ resource "google_compute_instance" "k3s" {
     network = google_compute_network.vpc_network.id
     subnetwork = google_compute_subnetwork.public_subnet.id
     access_config {
-      # Permet d'obtenir une adresse IP publique
     }
   }
 
   # Script d'initialisation pour installer k3s
-    metadata_startup_script = <<-EOT
-        #!/bin/bash
-        curl -sfL https://get.k3s.io | sh -
-    EOT
+  metadata_startup_script = <<-EOT
+    #!/bin/bash
+    until ping -c 1 google.com; do sleep 1; done
+    PUBLIC_IP=$(curl -H "Metadata-Flavor: Google" http://metadata.google.internal/computeMetadata/v1/instance/network-interfaces/0/access-configs/0/external-ip)
+    curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC="--write-kubeconfig-mode 644 --tls-san $PUBLIC_IP" bash -
+  EOT
 }
 
 output "instance_ip" {
